@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/indexMobile.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+</head>
+
+<body>
+    <div id="bodyContainer">
+        <h1 id="TopHeader">JavaScript Examples</h1>
+        <h2 id="LoopsHeader1">Loops:</h2>
+        <h3 id="forLoops">For Loops:</h3>
+        <h3 id="whileLoops">While Loops:</h3>
+            <script>                
+                var para = document.createElement("p");
+                for(i = 0;i<10;i++){
+                var node = document.createTextNode(i + " ");
+                para.appendChild(node);
+                var element = document.getElementById("forLoops");
+                element.appendChild(para);
+                }
+
+                var second = 0;
+                var para = document.createElement("p");
+                while(second < 50){
+                var node = document.createTextNode(second + " ");
+                para.appendChild(node);
+                var element = document.getElementById("whileLoops");
+                element.appendChild(para);
+                second+=5;
+                }
+            </script>
+
+        <h2 id="ConditionalStatementHeader">Conditional Statements</h2>
+        <h3 id="ifelse">if/else Statements:</h3>
+
+        <script>
+                var one = 1;
+                var two =2;
+                var para = document.createElement("p");
+                if (one < two){
+                var node = document.createTextNode("one is less than two");
+                para.appendChild(node);
+                var element = document.getElementById("ifelse");
+                element.appendChild(para);
+                }else{
+                var node = document.createTextNode("two is greater than one");
+                para.appendChild(node);
+                var element = document.getElementById("ifelse");
+                element.appendChild(para);
+                }                
+        </script>
+
+        <h2 class="FunctionsHeader">Functions</h2>
+        <h3 id="nameFunction">Name:</h3>
+        <h3 id="additionFunction">Addition:</h3>
+        <h3 id="multiplyFunction">Muliply:</h3>
+        <script>
+                function myName(fn,ln){
+                    return fn +" "+ln;
+                }
+
+                function add(a,b){
+                    return a+b;
+                }
+
+                function multiply(a,b){
+                    return a*b;
+                }
+                
+                var firstName = "Alex";
+                var lastName = "Godfrey";
+                var para = document.createElement("p");                
+                var node = document.createTextNode(myName(firstName,lastName));
+                para.appendChild(node);
+                var element = document.getElementById("nameFunction");
+                element.appendChild(para);
+
+                var a = 45;
+                var b = 37;
+                var para = document.createElement("p");                
+                var node = document.createTextNode(a +" + "+b +" = "+add(a,b));
+                para.appendChild(node);
+                var element = document.getElementById("additionFunction");
+                element.appendChild(para);
+
+                var a = 45;
+                var b = 37;
+                var para = document.createElement("p");                
+                var node = document.createTextNode(a +" X "+b +" = "+multiply(a,b));
+                para.appendChild(node);
+                var element = document.getElementById("multiplyFunction");
+                element.appendChild(para);
+                             
+        </script>
+
+
+        <h2 class="VariablesHeader">Variables</h2>
+        <h3 id="variableTypes">Types:</h2>
+        
+        <script>
+            var string = "Alex Godfrey";
+            var int = 5;
+            var double = 195765;
+            var bool = true;
+            var array = ["apple", "orange","grapes"]
+
+            var para = document.createElement("p");
+            var para1 = document.createElement("p");
+            var para2 = document.createElement("p");
+            var para3 = document.createElement("p");
+            var para4 = document.createElement("p");
+
+            var node = document.createTextNode(string + " is variable type: "+ typeof string + ". ");
+            var node1 = document.createTextNode(int + " is variable type: "+ typeof int + ". ");
+            var node2 = document.createTextNode(double + " is variable type: "+ typeof double + ". ");
+            var node3 = document.createTextNode(bool + " is variable type: "+ typeof bool + ". ");
+            var node4 = document.createTextNode(array + " is variable type: "+ typeof array + ". ");
+
+            para.appendChild(node);
+            var element = document.getElementById("variableTypes");
+            element.appendChild(para);
+
+            para.appendChild(node1);
+            var element = document.getElementById("variableTypes");
+            element.appendChild(para1);
+
+            para.appendChild(node2);
+            var element = document.getElementById("variableTypes");
+            element.appendChild(para2);
+
+            para.appendChild(node3);
+            var element = document.getElementById("variableTypes");
+            element.appendChild(para3);
+
+            para.appendChild(node4);
+            var element = document.getElementById("variableTypes");
+            element.appendChild(para4);
+        </script>
+
+
+        <h2 class="ParametersHeader">Parameters</h2>
+        <h3 id="argumentsHeader">Arguments:</h3>
+
+        <script>
+                //var a = 45;
+                //var b = 37;
+                //var para = document.createElement("p");                
+                //var node = document.createTextNode(a +" X "+b +" = "+multiply(a,b));
+                //para.appendChild(node);
+                //var element = document.getElementById("multiplyFunction");
+                //element.appendChild(para);
+
+            function printArg(){
+                var args="";
+                for (i=0;i<arguments.length;i++){
+                    args+=arguments[i]+" ";
+                }
+                var para = document.createElement("p");                
+                var node = document.createTextNode(args);
+                para.appendChild(node);
+                var element = document.getElementById("argumentsHeader");
+                element.appendChild(para);
+            }
+
+            function addArg(){
+                var args=0;
+                for (i=0;i<arguments.length;i++){
+                    args+=arguments[i];
+                }
+                var para = document.createElement("p");                
+                var node = document.createTextNode(args);
+                para.appendChild(node);
+                var element = document.getElementById("argumentsHeader");
+                element.appendChild(para);
+            }
+
+            printArg(1,2,3,4,5,6,7,8,9,10);
+            addArg(1,2,3,4,5,6,7,8,9,10);
+
+        </script>
+
+        <h2 id="ArraysHeader">Arrays</h2>
+        <h3 id="StringArray">String Array:</h3>
+        <h3 id="intArray">Int Array:</h3>
+
+            <script>
+                var cars = ["dodge", "ford", "Toyota", "Honda", "Nissan"];
+                var numbers = [1,22,3,24,52,62,72,88,59,10,45,65,48,88,9,5,7,87,65,4,88,69,684,454,78,4,56,4]
+                var stringifyCars="";
+                var maxInt = -Infinity; 
+
+                for (i=0;i<cars.length;i++){
+                    stringifyCars += cars[i] + " ";
+                }
+
+                for (i=0;i<numbers.length;i++){
+                    if(numbers[i]>maxInt){
+                        maxInt=numbers[i];
+                    }
+                }
+
+                var para = document.createElement("p");                
+                var node = document.createTextNode(stringifyCars);
+                para.appendChild(node);
+                var element = document.getElementById("StringArray");
+                element.appendChild(para);
+
+                var para = document.createElement("p");                
+                var node = document.createTextNode("Max int in array: "+maxInt);
+                para.appendChild(node);
+                var element = document.getElementById("intArray");
+                element.appendChild(para);
+
+
+            </script>
+
+        <h2 class="AArraysHeader">Associative Arrays:</h2>
+
+    </div>
+
+
+</body>
+
+
+</html>

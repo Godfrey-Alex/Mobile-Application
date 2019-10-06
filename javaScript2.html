@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+</head>
+
+<body>
+    <div id="bodyContainer">
+        <h1>Object Creation Functions</h1>
+        <div id="form">
+            <form action="/action_page.php">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" placeholder="First Name...">
+
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="LastName" placeholder="Last Name...">
+
+                <label for="bdate">Birthday:</label>
+                <input type="date" id="bdate" placeholder="">
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" placeholder="jdoe@email.com">
+
+                <input type="button" onclick="myPersonFunction()" value="Create Person Object">
+
+                <!--<input type="submit" value="Submit">-->
+            </form>
+        </div>
+        <h2 id="personObject">Person Object:</h2>
+        <h2 id="personFunction">Person Function:</h2>
+
+        <div id="studentform">
+                <form action="/action_page.php">
+                    <label for="major">Major:</label>
+                    <input type="text" id="major" placeholder="Underwater Basken Weaving...">
+    
+                    <label for="gpa">GPA:</label>
+                    <input type="text" id="GPA" placeholder="4.0...">
+    
+                    <input type="button" onclick="myStudentFunction()" value="Create Student Object">
+    
+                    
+                </form>
+            </div>
+
+        <h2 id="studentObject">Student Object:</h2>
+        <h2 id="StudentFunction">Student Function:</h2>
+
+        <!--<button onclick="introduce(me)">Introduce</button>-->
+
+        <script>
+
+            function Person(fn, ln, bd, em) {
+                this.firstName = fn;
+                this.lastName = ln;
+                this.bdate = bd;
+                this.email = em;
+                this.introduce=function(){
+                    document.getElementById("personFunction").innerHTML = "Hello! My name is " + this.firstName + " " + this.lastName + ".";
+                }
+            }
+
+            function Student(fn, ln, bd, em, maj, gpa){
+                Person.call(this, fn, ln, bd, em)
+                this.maj=maj;
+                this.gpa=gpa;
+                this.imastudent = function(){
+                    document.getElementById("StudentFunction").innerHTML = "I have a GPA of  " + this.gpa + " I am studying " + this.maj + ". I love programming.";
+                }
+            }
+
+            function myPersonFunction() {
+                var me = new Person(document.getElementById("firstName").value, document.getElementById("LastName").value,
+                    document.getElementById("bdate").value, document.getElementById("email").value);
+                document.getElementById("personObject").innerHTML = me.firstName + " " + me.lastName + " " + me.bdate + " " + me.email;
+                me.introduce();
+            }
+
+            function myStudentFunction() {
+                var you = new Student(document.getElementById("firstName").value, document.getElementById("LastName").value,
+                    document.getElementById("bdate").value, document.getElementById("email").value, document.getElementById("major").value,
+                    document.getElementById("GPA").value);
+                document.getElementById("studentObject").innerHTML = you.firstName + " " + you.lastName + " " + you.bdate + " " + you.email + " "+ you.maj + " "+you.gpa;
+                you.imastudent();
+            }
+
+
+
+            //var para = document.createElement("p");
+            //var node = document.createTextNode(a + " X " + b + " = " + multiply(a, b));
+            //para.appendChild(node);
+            //var element = document.getElementById("multiplyFunction");
+            //element.appendChild(para);
+
+        </script>
+
+
+
+
+    </div>
+</body>
+
+
+</html>
