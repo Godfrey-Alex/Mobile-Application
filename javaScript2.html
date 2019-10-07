@@ -13,7 +13,8 @@
     <div id="bodyContainer">
         <h1>Object Creation Functions</h1>
         <div id="form">
-            <form action="/action_page.php">
+            <form action="/action_page.php"><!--the HTML in this page is used to display different fields to allow users to enter data about a persona and then it creates a 
+                                            person object to demonstrate what we can do with objects-->
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" placeholder="First Name...">
 
@@ -34,10 +35,11 @@
         <h2 id="personObject">Person Object:</h2>
         <h2 id="personFunction">Person Function:</h2>
 
-        <div id="studentform">
+        <div id="studentform"><!--The following html code presents the user the ability to add additional data about a person to make a student object that inherits from a Person object
+                                This calls the constructor for the person object in its creation. It then displays it to ther user. -->
                 <form action="/action_page.php">
                     <label for="major">Major:</label>
-                    <input type="text" id="major" placeholder="Underwater Basken Weaving...">
+                    <input type="text" id="major" placeholder="Underwater Basket Weaving...">
     
                     <label for="gpa">GPA:</label>
                     <input type="text" id="GPA" placeholder="4.0...">
@@ -48,40 +50,40 @@
                 </form>
             </div>
 
-        <h2 id="studentObject">Student Object:</h2>
+        <h2 id="studentObject">Student Object(Inherits from Person):</h2>
         <h2 id="StudentFunction">Student Function:</h2>
 
         <!--<button onclick="introduce(me)">Introduce</button>-->
 
         <script>
 
-            function Person(fn, ln, bd, em) {
+            function Person(fn, ln, bd, em) {//Ti is the constuctor for a Person object
                 this.firstName = fn;
                 this.lastName = ln;
                 this.bdate = bd;
                 this.email = em;
-                this.introduce=function(){
+                this.introduce=function(){//I have created a function/method that allows a Person to introduce themsleves to tell the user a little about himself. 
                     document.getElementById("personFunction").innerHTML = "Hello! My name is " + this.firstName + " " + this.lastName + ".";
                 }
             }
 
-            function Student(fn, ln, bd, em, maj, gpa){
-                Person.call(this, fn, ln, bd, em)
+            function Student(fn, ln, bd, em, maj, gpa){//This is the student constructor that creates a student object that inherits from the person object
+                Person.call(this, fn, ln, bd, em)//Calls the parent class constuctor to created the required inherited data. 
                 this.maj=maj;
                 this.gpa=gpa;
-                this.imastudent = function(){
+                this.imastudent = function(){//Similar to the indroduce function of a person, the imastudent function allows them to tell the end user a bit about themselves as a student. 
                     document.getElementById("StudentFunction").innerHTML = "I have a GPA of  " + this.gpa + " I am studying " + this.maj + ". I love programming.";
                 }
             }
 
-            function myPersonFunction() {
+            function myPersonFunction() {//Functions that gets called when a user hits the button next to the field to get the userdata
                 var me = new Person(document.getElementById("firstName").value, document.getElementById("LastName").value,
                     document.getElementById("bdate").value, document.getElementById("email").value);
                 document.getElementById("personObject").innerHTML = me.firstName + " " + me.lastName + " " + me.bdate + " " + me.email;
                 me.introduce();
             }
 
-            function myStudentFunction() {
+            function myStudentFunction() {//Functions that gets called when a user hits the button next to the field to get the student data
                 var you = new Student(document.getElementById("firstName").value, document.getElementById("LastName").value,
                     document.getElementById("bdate").value, document.getElementById("email").value, document.getElementById("major").value,
                     document.getElementById("GPA").value);
@@ -89,18 +91,7 @@
                 you.imastudent();
             }
 
-
-
-            //var para = document.createElement("p");
-            //var node = document.createTextNode(a + " X " + b + " = " + multiply(a, b));
-            //para.appendChild(node);
-            //var element = document.getElementById("multiplyFunction");
-            //element.appendChild(para);
-
         </script>
-
-
-
 
     </div>
 </body>
