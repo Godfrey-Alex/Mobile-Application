@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+</head>
+
+<body>
+
+    <h1>Using XMLHTTPRequest to Consume a JSON Web Service</h1>
+    <p>This page will demonstrate how to make an API Rest call to get weather info for a location based on the users
+        selection.<br></p>
+    <div id="jsonForm">
+        <form action="/action_page.php">
+            <label for="major">Select a City:</label>
+            <select name="city" id="cityvalue">
+                <option value="fr">Paris, France</option>
+                <option value="germany">Berlin, Germany</option>
+                <option value="usa">Manhattan, United States of America</option>
+                <option value="swiss">Bern, Switzerland</option>
+            </select>
+
+            <input type="button" onclick="getWeather()" value="Bloom">
+        </form>
+    </div>
+
+    <p id="country">Country:</p>
+    <p id="city">City:</p>
+    <p id="currentWeather">Weather:</p>
+    <p id="CurrentTemp">Current Temp:</p>
+    <p id="maxTemp">Max Temp:</p>
+    <p id="minTemp">Min Temp:</p>
+    <p id="windSpeed">Wind Speed:</p>
+    <p id="rawJson">Raw JSON response:</p>
+
+
+    <script>
+        function getWeather() {
+
+            var paris = 'Paris,fr';
+            var germany = 'Berlin,de';
+            var nyczip = 'manhattan,us';
+            var bern = 'Bern,ch';
+            var cityvalue = document.getElementById("cityvalue").value;
+
+            if (cityvalue == 'fr') {
+                cityRequestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + paris + '&APPID=0ce07ace7e20b6f20a0fae73da80c241&units=imperial';
+            } else if (cityvalue == 'germany') {
+                cityRequestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + germany + '&APPID=0ce07ace7e20b6f20a0fae73da80c241&units=imperial';
+            } else if (cityvalue == 'usa') {
+                cityRequestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + nyczip + '&APPID=0ce07ace7e20b6f20a0fae73da80c241&units=imperial';
+            } else if (cityvalue == 'swiss') {
+                cityRequestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + bern + '&APPID=0ce07ace7e20b6f20a0fae73da80c241&units=imperial';
+            }
+
+
+            var cityRequest = new XMLHttpRequest();
+            cityRequest.open('GET', cityRequestURL);
+            cityRequest.responseType = 'json';
+            cityRequest.send();
+            cityRequest.onload = function () {
+                var weather = cityRequest.response;
+                document.getElementById("country").innerHTML = "Country: " + weather.sys.country;
+                document.getElementById("city").innerHTML = "City: " + weather.name;
+                document.getElementById("currentWeather").innerHTML = "Weather: " + weather.weather[0].description;
+                document.getElementById("CurrentTemp").innerHTML = "Current Temp: " + weather.main.temp + "&#8457;";
+                document.getElementById("maxTemp").innerHTML = "Max Temp: " + weather.main.temp_max + "&#8457;";
+                document.getElementById("minTemp").innerHTML = "Min Temp: " + weather.main.temp_min + "&#8457;";
+                document.getElementById("windSpeed").innerHTML = "Wind Speed: " + weather.wind.speed + "mph";
+                document.getElementById("rawJson").innerHTML = "Raw JSON response: " +JSON.stringify(weather);
+            }
+        }
+    </script>
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+</head>
+
+<body>
+
+    <h1>Json Parsing and Stringify</h1>
+    <h2>Json Parsing</h2>
+    <p id="description">Person Json object Example: { "firstname":Obiwan, "lastname":Kenobi, "age":48,
+        "car":Speeder};<br>Below I will parse it to demonstrate how this data
+        can be disected and used in a page or in JavaScript.<br> It takes of order sets of data and
+        parses them into seperate attributes that can then be used programatically.
+        <br><br>Here are some examples you can use. Or if you are
+        brave you can try typing it freehand.<br><br>
+        { "name": "Obiwan", "lastname": "Kenobi", "age": 48, "car": "Speeder", "motto": "I have a bad feeling about
+        this..." }<br>
+        {"name":"John", "age":31, "city":"New York"}<br>
+        {"product":"Book", "title":"Book of Things", "Author":"JT Fakester", "cost":98.89}<br>
+    </p>
+
+    <div id="jsonForm">
+        <form action="/action_page.php">
+            <label for="major">JSON Parse Demo:</label>
+            <input type="text" id="rawJson" placeholder="Enter JSON..." style="width: 850px;">
+
+            <input type="button" onclick="jsonFunction()" value="Bam">
+
+
+        </form>
+    </div>
+
+    <p id="demo"></p>
+
+
+    <h2>Json Stringify</h2>
+    <p>Now feel free to take the examples used above and enter them into the text box. This will take the data and turn
+        it into a string object<br>
+        This makes it so that the data is ready to be sent to different servers or resources to be utilized.<br><br>
+    </p>
+
+    <div id="jsonForm">
+        <form action="/action_page.php">
+            <label for="major">JSON Stringify Demo:</label>
+            <input type="text" id="stringifyJson" placeholder="Enter JSON..." style="width: 850px;">
+
+            <input type="button" onclick="jsonStringifyFunction()" value="Bloom">
+
+
+        </form>
+    </div>
+
+    <p id="StringifyDemo"></p>
+
+    <script>
+        function jsonFunction() {
+            var ob = JSON.parse(document.getElementById("rawJson").value);
+            var foo;
+
+            for (foo in ob) {
+                document.getElementById("demo").innerHTML += foo + ": " + ob[foo] + "<br>"
+            }
+
+        }
+
+        function jsonStringifyFunction() {
+            var ob = JSON.parse(document.getElementById("stringifyJson").value);
+            var stringOb = JSON.stringify(ob);
+            var foo;
+            document.getElementById("StringifyDemo").innerHTML = stringOb;
+        }
+
+    </script>
+
+
+</body>
+
+
+</html>
