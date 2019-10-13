@@ -69,6 +69,7 @@
             cityRequest.onload = function () {
                 var weather = cityRequest.response;
                 document.getElementById("country").innerHTML = "Country: " + weather.sys.country;
+                window.alert(weather.sys.country);
                 document.getElementById("city").innerHTML = "City: " + weather.name;
                 document.getElementById("currentWeather").innerHTML = "Weather: " + weather.weather[0].description;
                 document.getElementById("CurrentTemp").innerHTML = "Current Temp: " + weather.main.temp + "&#8457;";
