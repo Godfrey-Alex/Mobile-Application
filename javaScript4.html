@@ -47,15 +47,18 @@
             var bern = 'Bern,ch';
             var cityvalue = document.getElementById("cityvalue").value;
 
-            if (cityvalue == 'fr') {
-                window.alert("France was hit");
+            if (cityvalue == 'fr') {                
                 cityRequestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + paris + '&APPID=64ab9833a5e5e15a54383ee60489eb5e&units=imperial';
+                window.alert(cityvalue + " " +cityRequestURL);
             } else if (cityvalue == 'germany') {
                 cityRequestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + germany + '&APPID=494159b2950d172bd71043e4dab7679c&units=imperial';
+                window.alert(cityvalue + " " +cityRequestURL);
             } else if (cityvalue == 'usa') {
                 cityRequestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + nyczip + '&APPID=eab640531f70eb2a6688f8905600fef4&units=imperial';
+                window.alert(cityvalue + " " +cityRequestURL);
             } else if (cityvalue == 'swiss') {
                 cityRequestURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + bern + '&APPID=0ce07ace7e20b6f20a0fae73da80c241&units=imperial';
+                window.alert(cityvalue + " " +cityRequestURL);
             }
 
 
