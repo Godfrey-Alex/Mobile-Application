@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+</head>
+
+<body>
+    <div id="bodyContainer">
+        <h1 id="Create">DOM Manipulation</h1>
+        <p1 id="datap">Foo Bar</p1><br>
+        <ol id="datalist">
+            <li>Foo Bar</li>
+        </ol>
+        <form action="/action_page.php">
+            Input:<input type="text" id="data"><br>
+            <input type="button" onclick="createNewElement()" value="Create New Element">
+            <input type="button" onclick="insertBeforeElement()" value="Insert Element"><br><br>
+            Element to Remove:<input type="number" id="elementToRemove"><br>
+            <input type="button" onclick="removeChildElement()" value="Remove Element">
+        </form>
+
+        <p>The "Create New Element" button will add a new paragraph element to the page. The "Insert Element" will take the value in the box
+            and add it to the ordered<br> list that shows up in the page. The "Element to Remove" button will remove the element that corresponds with
+            the number in the "Element to Remove" box. 
+        </p>
+
+
+
+
+        <script>
+            function createNewElement() {
+                var newData = document.createElement('p');
+                newData.innerHTML = document.getElementById("data").value;
+                document.getElementById("datap").appendChild(newData);
+            }
+
+            function insertBeforeElement() {
+                var newListItem = document.createElement("li");
+                var newItem = document.createTextNode(document.getElementById("data").value);
+                newListItem.appendChild(newItem);
+
+                var existingItems = document.getElementById("datalist");
+                existingItems.insertBefore(newListItem, existingItems.childNodes[0])
+            }
+
+            function removeChildElement() {
+                //https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_node_removechild
+                var removeList = document.getElementById("datalist");
+                removeList.removeChild(removeList.childNodes[document.getElementById("elementToRemove").value-1]);
+
+            }
+        </script>
+
+    </div>
+</body>
+
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+</head>
+
+<body>
+    <div id="bodyContainer">
+        <h1>Local Storage API, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objects.</h1>
+        <div id="form">
+            <form action="/action_page.php">
+                <!--the HTML in this page is used to display different fields to allow users to enter data about a persona and then it creates a 
+                                            person object to demonstrate what we can do with objects-->
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" placeholder="First Name...">
+
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="LastName" placeholder="Last Name...">
+
+                <label for="bdate">Birthday:</label>
+                <input type="date" id="bdate" placeholder="">
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" placeholder="jdoe@email.com">
+
+                <input type="button" onclick="myPersonFunction()" value="Create Person Object">
+
+                <!--<input type="submit" value="Submit">-->
+            </form>
+        </div>
+        <h2 id="personfn">First Name:</h2>
+        <h2 id="personln">Last Name:</h2>
+        <h2 id="persondob">Date of Birth:</h2>
+        <h2 id="personemail">Email:</h2>
+        <h2 id="personObject">Function:</h2>
+
+        <h1>Arrays</h1>
+        <div id="form">
+            <form action="/action_page.php">
+                <!--the HTML in this page is used to display different fields to allow users to enter data about a persona and then it creates a 
+                                            person object to demonstrate what we can do with objects-->
+                <label for="firstName">Enter How long you want your Array to be: </label>
+                <input type="number" id="length" placeholder="...">
+
+                <input type="button" onclick="arrayFunction()" value="Show Array">
+
+                <!--<input type="submit" value="Submit">-->
+            </form>
+        </div>
+        <h2 id="array">Array:</h2>
+        
+
+        <script>
+
+            function Person(fn, ln, bd, em) {//Ti is the constuctor for a Person object
+                this.firstName = fn;
+                this.lastName = ln;
+                this.bdate = bd;
+                this.email = em;
+                this.introduce = function () {//I have created a function/method that allows a Person to introduce themsleves to tell the user a little about himself. 
+                    document.getElementById("personObject").innerHTML = "Function: Hello! My name is " + this.firstName + " " + this.lastName + ".";
+                }
+            }
+
+            function myPersonFunction() {//Functions that gets called when a user hits the button next to the field to get the userdata
+                //window.alert(typeof(Storage));
+                if (typeof (Storage) == "undefined") {
+                    var me = new Person(document.getElementById("firstName").value, document.getElementById("LastName").value,
+                        document.getElementById("bdate").value, document.getElementById("email").value);
+
+                    localStorage.setItem("person", JSON.stringify(me));
+                } else {
+                    var getObject = JSON.parse(localStorage.getItem("person"));
+                    //window.alert(getObject.firstName);
+                    document.getElementById("personfn").innerHTML = "First Name: " + getObject.firstName;
+                    document.getElementById("personln").innerHTML = "Last Name: "+getObject.lastName;
+                    document.getElementById("persondob").innerHTML = "Date of Birth: " + getObject.bdate;
+                    document.getElementById("personemail").innerHTML = "Email: "+getObject.email;
+                    document.getElementById("personObject").innerHTML = "Function: " + getObject.firstName + " " + getObject.lastName + " " +
+                        getObject.bdate + " " + getObject.email;
+                }
+                me.introduce();
+            }
+
+            function arrayFunction() {
+                var length = document.getElementById("length").value;
+                //window.alert("length: " + length);
+                var arr = [];
+                var string;
+                for (i=0;i<length;i++){
+                    arr[i]=Math.floor((Math.random() * 10) + 1);
+                    //window.alert(Math.floor((Math.random() * 10) + 1));
+                }
+
+                localStorage.setItem("array", arr);
+                var storageArray = localStorage.getItem("array");
+                for (i=0;i<storageArray.length;i++){
+                    string += storageArray[i]+=" ";
+                }
+                document.getElementById("array").innerHTML = "Array: " + string;
+            }
+
+
+
+        </script>
+
+    </div>
+</body>
+
+
+</html>
