@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+    <style>
+        body {
+            background-color: lightgray;
+        }
+
+        #topContainer {
+            background-color: lime;
+        }
+
+        #middleContainer {
+            background-color: grey;
+        }
+
+        #bottomContainer {
+            background-color: royalblue;
+        }
+
+        h1 {
+            color: black
+        }
+
+        p {
+            color: blue
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bodyContainer">
+        <h1>
+            This Page will demonstrate how to manipulate CSS properties of the page. The buttons bellow will change fonts, font size as well as 
+            a number of colors of the page. Feel free to have fun. 
+        </h1>
+        <div id="topContainer">
+            <h1 id="h1">Top Container</h1>
+            <p id="p1">This will change the collor.</p>
+        </div>
+        <div id="middleContainer">
+            <h1 id="h2">Middle Container</h1>
+            <p id="p2">This is a demo phrase that will domonstrate changing the CSS format.</p>
+        </div>
+        <div id="bottomContainer">
+            <h1 id="h3">Bottom Container</h1>
+            <p id="p3">Writting down here can also be changed by a button on the page.</p>
+        </div>
+        <div id="buttonContainer">
+            <h1 id="h4">Button Container</h1>
+            <p id="p4">Writting down here can also be changed by a button on the page.</p>
+            <button onclick="changeh1()">H1 </button>
+            <button onclick="changep()">P </button>
+            <button onclick="changeTop()">Top Container </button>
+            <button onclick="changeMiddle()">Middle Container </button>
+            <button onclick="changeBottom()">Bottom Container </button>
+            <button onclick="changeButton()">Button Container </button>
+        </div>
+
+    </div>
+
+    <script>
+        function getRandomColor() {            
+            var color = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' +
+                (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';           
+            return color;
+        }
+
+        function changeh1() {
+            var color = getRandomColor();
+            document.getElementById("h1").style.color = color;
+            document.getElementById("h2").style.color = color;
+            document.getElementById("h3").style.color = color;
+            document.getElementById("h4").style.color = color;
+            document.getElementById("h1").style.font = "italic bold 20px arial,serif";
+            document.getElementById("h2").style.font = "italic bold 30px arial,serif";
+            document.getElementById("h3").style.font = "italic bold 40px arial,serif";
+            document.getElementById("h4").style.font = "italic bold 50px arial,serif";
+        }
+
+        function changep() {
+            var color = getRandomColor();
+            document.getElementById("p1").style.color = color;
+            document.getElementById("p2").style.color = color;
+            document.getElementById("p3").style.color = color;
+            document.getElementById("p4").style.color = color;
+            document.getElementById("p1").style.font = "italic bold 50px arial,serif";
+            document.getElementById("p2").style.font = "italic bold 40px arial,serif";
+            document.getElementById("p3").style.font = "italic bold 30px arial,serif";
+            document.getElementById("p4").style.font = "italic bold 20px arial,serif";
+        }
+
+        function changeTop() {
+            var color = getRandomColor();
+            document.getElementById("topContainer").style.backgroundColor = color;
+        }
+
+        function changeMiddle() {
+            var color = getRandomColor();
+            document.getElementById("middleContainer").style.backgroundColor = color;
+        }
+
+        function changeBottom() {
+            var color = getRandomColor();
+            document.getElementById("bottomContainer").style.backgroundColor = color;
+        }
+
+        function changeButton() {
+            var color = getRandomColor();
+            document.getElementById("buttonContainer").style.backgroundColor = color;
+        }
+    </script>
+
+</body>
+
+</html>

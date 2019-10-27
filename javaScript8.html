@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("li").show();
+            })
+
+            $("li").hover(function () {
+                $(this).css("background-color", "red")
+            }, function () {
+                $(this).css("background-color", "grey")
+            })
+
+            $("li").click(function () {
+                $(this).fadeOut();
+            })
+
+            $('#moveBtnrt').click(function () {
+                $('#animationContainer').animate({left: '-=400px'},100);
+            });
+            $('#moveBtnlt').click(function () {
+                $('#animationContainer').animate({left: '+=200px'},500);
+            });
+
+            $("#animationContainer").hover(function () {
+                $(this).css("background-color", "red")
+            }, function () {
+                $(this).css("background-color", "grey")
+            })
+
+            $('#collapse').hover(function () {
+                $("#ul").children("li").slideToggle(400);
+            })
+
+        })
+
+        $(document).ready(function () {
+
+        })
+
+
+    </script>
+</head>
+
+<body>
+    <div id="wholeContainer">
+        <p>This page will demonstrate CSS animations and Property Changes. If you click on the unordered list items it will fade away. You
+            can then click on the button to show the items that fadden away. You will notice the colors change as you move the cursor over the
+            different elements on the page. <br><br> The really fun thing to do is to make the box at the bottom of the page move across the page. 
+
+        </p>
+        <div class="movieContainer">
+            <h1>Best Movies:</h1>
+            <ul>
+                <li>Star Wars</li>
+                <li>Avengers</li>
+                <li>Lord of the Rings</li>
+                <li>Hobbit</li>
+                <li>Master and Commander: Far Side of the World</li>
+                <li>The Rocketeer</li>
+            </ul>
+        </div>
+        <div id="bookContainer">
+            <h1>Best Books:</h1>
+            <ul>
+                <li>Harry Potter</li>
+                <li>Lord of the Rings</li>
+                <li>The Hobbit</li>
+                <li>Fabelhaven</li>
+            </ul>
+        </div>
+        <div id="foodContainer">
+            <h1>Best Foods:</h1>
+            <ul>
+                <li>Smoked Ribbs</li>
+                <li>Brisket</li>
+                <li>Burgers</li>
+                <li>Pizza</li>
+                <li>Tacos</li>
+                <li>Cafe Rio Salad</li>
+            </ul>
+        </div>
+        <button>See Hidden Items</button>
+        <div id="animationContainer" style="background-color: rgb(8, 253, 0);width: 100px;height: 100px;position:relative;">
+            <h1 id="moveMe">Move Me</h1>
+        </div>
+        <button id="moveBtnrt">Move Left</button>
+        <button id="moveBtnlt">Move Right</button>    
+        <div>
+            <h1 id="collapse">Collapse this list</h1>
+            <ul id="ul">
+                <li>First</li>
+                <li>Second</li>
+                <li>Third</li>
+                <li>Fourth</li>
+                <li>Fifth</li>
+                <li>Sixth</li>
+                <li>Seventh</li>
+                <li>Eigth</li>
+            </ul>
+        </div>    
+    </div>
+
+</body>
+
+
+</html>
