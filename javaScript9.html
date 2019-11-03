@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body onload="load()">
+    <h1>Standard Java Script Events</h1>
+    <div id="onChange" onchange="onChangeFunction()">
+        <h3>Event: onchange</h3>
+        <p id="food">Food Selected: </p>
+        <select id="selection">
+            <option value="Pizza">Pizza</option>
+            <option value="CheeseBurger">CheeseBurger</option>
+            <option value="Brisket">Brisket</option>
+            <option value="Ribs">Ribs</option>
+        </select>
+    </div>
+    <div id="clickMe" style="background-color: rgb(8, 253, 0);width: 200px;height: 200px;position:relative;"
+        onclick="clickMeFunction()">
+        <h3>Event: onclick <br>Click Me!</h3>
+        <p id="clicked"></p>
+    </div>
+
+    <div id="mouseEvents" style="background-color: rgb(253, 8, 0);width: 200px;height: 200px;position:relative;"
+        onmouseenter="mouseOverFunction()" onmouseleave="mouseLeaveFunction()" onmousedown="mouseDownFunction()"
+        onmouseup="mouseUpFunction()">
+        <h3>Event: Mouse Events</h3>
+        <p id="moused">Whats Happening?</p>
+    </div>
+
+    <div id="animationEvent" style="background-color: rgb(8, 196, 253);width: 1000px;height: 50px; position: relative;">
+        <div id="movingBox" style="background-color: rgb(255, 115, 0);width: 50px;height: 50px; position:absolute;">
+        </div>
+    </div>
+    <button onclick="animateMe()">Animate Orange Box</button>
+
+    <div id="onLoadContainer" onload="load()"
+        style="background-color: rgb(25, 10, 228);width: 200px;height: 200px;position:relative;">
+        <h3 id="loaded">Did the page Load?</h3>
+    </div>
+
+    <div id="touchEvents" style="background-color: rgb(73, 78, 77);width: 200px;height: 200px;position:relative;"
+        ontouchstart="touchFunction()">
+        <h3>Event: Mobile touchEvents</h3>
+        <p id="touched">Whats Happening?</p>
+    </div>
+
+    <script>
+        function onChangeFunction() {
+            var selection = document.getElementById("selection").value;
+            document.getElementById("food").innerHTML = "Food Selected: " + selection;
+        }
+
+        function clickMeFunction() {
+            window.alert("Button Was Clicked")
+            document.getElementById("clicked").innerHTML = "I have been clicked";
+        }
+
+        function mouseOverFunction() {
+            document.getElementById("moused").innerHTML = "Whats Happening?<br>Mouse is over div";
+        }
+
+        function mouseLeaveFunction() {
+            document.getElementById("moused").innerHTML = "Whats Happening?<br>Mouse just left div";
+        }
+
+        function mouseDownFunction() {
+            document.getElementById("moused").innerHTML = "Whats Happening?<br>Mouse is Pressed";
+        }
+
+        function mouseUpFunction() {
+            document.getElementById("moused").innerHTML = "Whats Happening?<br>Mouse has been released";
+        }
+
+        function load() {
+            window.alert("The Page just loaded!")
+            document.getElementById("loaded").innerHTML = "Did the page Load?<br>YES!";
+        }
+
+        function animateMe() {
+            //window.alert("animate");
+            var box = document.getElementById("movingBox");
+            var position = 0;
+            var id = setInterval(frame, 5);
+            function frame() {
+                if (position == 950) {
+                    clearInterval(id);
+                } else {
+                    position++;
+                    box.style.left = position + 'px';
+                }
+            }
+        }
+
+        function touchFunction() {
+            document.getElementById("touched").innerHTML = "Whats Happening?<br>You touched this DIV so the orange animation started";
+            animateMe();
+        }
+
+    </script>
+
+
+</body>
+
+</html>

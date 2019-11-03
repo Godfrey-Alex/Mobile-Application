@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+</head>
+
+<body>
+    <h1>Video Tag</h1>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/qTLPGclPBzo" frameborder="0"></iframe>
+    <h1>Audio Tag</h1>
+    <audio controls>
+        <source src="https://www.computerhope.com/jargon/m/example.mp3" />
+    </audio>
+    <h1>Canvas Example</h1>
+    <canvas id="Canvas" width="600" height="300" style="border:5px solid #0c0b0b;">
+        Your browser does not support the HTML5 canvas tag.</canvas>
+
+</body>
+<script>
+        var canvas = document.getElementById("Canvas");
+        var context = canvas.getContext("2d");
+        context.moveTo(250, 45);
+        context.lineTo(200, 150);
+        context.lineTo(300, 80);
+        context.lineTo(190, 80);
+        context.lineTo(300, 150);
+        context.lineTo(250, 45);
+        context.stroke();
+
+    </script>
+
+
+</html>
