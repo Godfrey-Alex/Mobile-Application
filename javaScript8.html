@@ -8,44 +8,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Java Script">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        #list {
+            background-color: lightgray;
+            visibility: visible;
+        }
+    </style>
     <script>
-        $(document).ready(function () {
-            $("button").click(function () {
-                $("li").show();
-            })
+        function hideMovies() {
+            document.getElementById("movieContainer").style.display = "none";
+        }
+        function showMovies() {
+            document.getElementById("movieContainer").style.display = "block";
+        }
+        function hideBooks() {
+            document.getElementById("bookContainer").style.display = "none";
+        }
+        function showBooks() {
+            document.getElementById("bookContainer").style.display = "block";
+        }
+        function hideFood() {
+            document.getElementById("foodContainer").style.display = "none";
+        }
+        function showFood() {
+            document.getElementById("foodContainer").style.display = "block";
+        }
+        function ChangeMovieColor() {
+            document.getElementById("movieContainer").style.backgroundColor = "red";
+        }
+        function ChangeMovieColorBack() {
+            document.getElementById("movieContainer").style.backgroundColor = "grey";
+        }
+        function ChangeBookColor() {
+            document.getElementById("bookContainer").style.backgroundColor = "red";
+        }
+        function ChangeBookColorBack() {
+            document.getElementById("bookContainer").style.backgroundColor = "grey";
+        }
+        function ChangeFoodColor() {
+            document.getElementById("foodContainer").style.backgroundColor = "red";
+        }
+        function ChangeFoodColorBack() {
+            document.getElementById("foodContainer").style.backgroundColor = "grey";
+        }
+        function changeAnimationColor() {
+            document.getElementById("animationContainer").style.backgroundColor = "red";
+        }
+        function changeAnimationColorBack() {
+            document.getElementById("animationContainer").style.backgroundColor = "grey";
+        } function moveLeft() {
+            var box = document.getElementById("animationContainer");
+            var position = 950;
+            var id = setInterval(frame, 5);
+            function frame() {
+                if (position == 0) {
+                    clearInterval(id);
+                } else {
+                    position--;
+                    box.style.left = position + 'px';
+                }
+            }
+        } function moveRight() {
+            var box = document.getElementById("animationContainer");
+            var position = 0;
+            var id = setInterval(frame, 5);
+            function frame() {
+                if (position == 950) {
+                    clearInterval(id);
+                } else {
+                    position++;
+                    box.style.left = position + 'px';
+                }
+            }
+        }
 
-            $("li").hover(function () {
-                $(this).css("background-color", "red")
-            }, function () {
-                $(this).css("background-color", "grey")
-            })
-
-            $("li").click(function () {
-                $(this).fadeOut();
-            })
-
-            $('#moveBtnrt').click(function () {
-                $('#animationContainer').animate({left: '-=400px'},100);
-            });
-            $('#moveBtnlt').click(function () {
-                $('#animationContainer').animate({left: '+=200px'},500);
-            });
-
-            $("#animationContainer").hover(function () {
-                $(this).css("background-color", "red")
-            }, function () {
-                $(this).css("background-color", "grey")
-            })
-
-            $('#collapse').hover(function () {
-                $("#ul").children("li").slideToggle(400);
-            })
-
-        })
-
-        $(document).ready(function () {
-
-        })
 
 
     </script>
@@ -53,61 +89,62 @@
 
 <body>
     <div id="wholeContainer">
-        <p>This page will demonstrate CSS animations and Property Changes. If you click on the unordered list items it will fade away. You
-            can then click on the button to show the items that fadden away. You will notice the colors change as you move the cursor over the
-            different elements on the page. <br><br> The really fun thing to do is to make the box at the bottom of the page move across the page. 
+        <p>This page will demonstrate CSS animations and Property Changes. If you click on the unordered list items it
+            will fade away. You
+            can then click on the button to show the items that fadden away. You will notice the colors change as you
+            move the cursor over the
+            different elements on the page. <br><br> The really fun thing to do is to make the box at the bottom of the
+            page move across the page.
 
         </p>
-        <div class="movieContainer">
+        <div id="movieContainer">
             <h1>Best Movies:</h1>
-            <ul>
-                <li>Star Wars</li>
-                <li>Avengers</li>
-                <li>Lord of the Rings</li>
-                <li>Hobbit</li>
-                <li>Master and Commander: Far Side of the World</li>
-                <li>The Rocketeer</li>
+            <ul id="colorList" onmouseout="ChangeMovieColorBack()" onmouseover="ChangeMovieColor()">
+                <li id="list">Star Wars</li>
+                <li id="list">Avengers</li>
+                <li id="list">Lord of the Rings</li>
+                <li id="list">Hobbit</li>
+                <li id="list">Master and Commander: Far Side of the World</li>
+                <li id="list">The Rocketeer</li>
             </ul>
+        </div>
+        <div>
+            <button onclick="hideMovies()">Hide Movies</button>
+            <button onclick="showMovies()">Show Movies</button>
         </div>
         <div id="bookContainer">
             <h1>Best Books:</h1>
-            <ul>
-                <li>Harry Potter</li>
-                <li>Lord of the Rings</li>
-                <li>The Hobbit</li>
-                <li>Fabelhaven</li>
+            <ul id="bookList" onmouseout="ChangeBookColorBack()" onmouseover="ChangeBookColor()">
+                <li id="list">Harry Potter</li>
+                <li id="list">Lord of the Rings</li>
+                <li id="list">The Hobbit</li>
+                <li id="list">Fabelhaven</li>
             </ul>
         </div>
+        <button onclick="hideBooks()">Hide Books</button>
+        <button onclick="showBooks()">Show Books</button>
         <div id="foodContainer">
             <h1>Best Foods:</h1>
-            <ul>
-                <li>Smoked Ribbs</li>
-                <li>Brisket</li>
-                <li>Burgers</li>
-                <li>Pizza</li>
-                <li>Tacos</li>
-                <li>Cafe Rio Salad</li>
+            <ul id="foodList" onmouseout="ChangeFoodColorBack()" onmouseover="ChangeFoodColor()">
+                <li id="list">Smoked Ribbs</li>
+                <li id="list">Brisket</li>
+                <li id="list">Burgers</li>
+                <li id="list">Pizza</li>
+                <li id="list">Tacos</li>
+                <li id="list">Cafe Rio Salad</li>
             </ul>
+
         </div>
-        <button>See Hidden Items</button>
-        <div id="animationContainer" style="background-color: rgb(8, 253, 0);width: 100px;height: 100px;position:relative;">
+        <div>
+            <button onclick="hideFood()">Hide Food</button>
+            <button onclick="showFood()">Show Food</button>
+        </div>
+        <div id="animationContainer" onmouseover="changeAnimationColor()" onmouseout="changeAnimationColorBack()"
+            style="background-color: rgb(8, 253, 0);width: 100px;height: 100px;position:relative;">
             <h1 id="moveMe">Move Me</h1>
         </div>
-        <button id="moveBtnrt">Move Left</button>
-        <button id="moveBtnlt">Move Right</button>    
-        <div>
-            <h1 id="collapse">Collapse this list</h1>
-            <ul id="ul">
-                <li>First</li>
-                <li>Second</li>
-                <li>Third</li>
-                <li>Fourth</li>
-                <li>Fifth</li>
-                <li>Sixth</li>
-                <li>Seventh</li>
-                <li>Eigth</li>
-            </ul>
-        </div>    
+        <button id="moveBtnrt" onclick="moveLeft()">Move Left</button>
+        <button id="moveBtnlt" onclick="moveRight()">Move Right</button>
     </div>
 
 </body>
