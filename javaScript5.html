@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>JavaScript</title>
-    <link rel="stylesheet" href="css/.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Java Script">
 </head>
@@ -14,103 +13,123 @@
         <h1>Local Storage API, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objects.</h1>
         <div id="form">
             <form action="/action_page.php">
-                <!--the HTML in this page is used to display different fields to allow users to enter data about a persona and then it creates a 
-                                            person object to demonstrate what we can do with objects-->
+
+                <label for="userName">Username:</label>
+                <input type="text" id="userName" placeholder="Username..."><br>
+
                 <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" placeholder="First Name...">
+                <input type="text" id="firstName" placeholder="First Name..."><br>
 
                 <label for="lastName">Last Name:</label>
-                <input type="text" id="LastName" placeholder="Last Name...">
+                <input type="text" id="lastName" placeholder="Last Name..."><br>
 
                 <label for="bdate">Birthday:</label>
-                <input type="date" id="bdate" placeholder="">
+                <input type="date" id="bdate" placeholder=""><br>
 
                 <label for="email">Email Address:</label>
-                <input type="email" id="email" placeholder="jdoe@email.com">
+                <input type="email" id="email" placeholder="jdoe@email.com"><br>
 
-                <input type="button" onclick="myPersonFunction()" value="Create Person Object">
+                <label for="address">Street Address:</label>
+                <input type="text" id="street" placeholder="Street..."><br>
 
-                <!--<input type="submit" value="Submit">-->
+                <label for="address">City:</label>
+                <input type="text" id="city" placeholder="City..."><br>
+
+                <label for="address">Zip:</label>
+                <input type="text" id="zip" placeholder="Zip..."><br>
+
+                <input type="button" onclick="execute()" value="Create Person Object">
             </form>
         </div>
-        <h2 id="personfn">First Name:</h2>
-        <h2 id="personln">Last Name:</h2>
-        <h2 id="persondob">Date of Birth:</h2>
-        <h2 id="personemail">Email:</h2>
-        <h2 id="personObject">Function:</h2>
-
-        <h1>Arrays</h1>
-        <div id="form">
+        <h1>Get Stored User Data</h1>
+        <div>
             <form action="/action_page.php">
-                <!--the HTML in this page is used to display different fields to allow users to enter data about a persona and then it creates a 
-                                            person object to demonstrate what we can do with objects-->
-                <label for="firstName">Enter How long you want your Array to be: </label>
-                <input type="number" id="length" placeholder="...">
+                <label for="key">Get Data for User</label>
+                <input type="text" id="key" placeholder="Username..."><br>
 
-                <input type="button" onclick="arrayFunction()" value="Show Array">
-
-                <!--<input type="submit" value="Submit">-->
+                <input type="button" onclick="getData()" value="Get Person Data">
+                <input type="button" onclick="localStorage.clear()" value="Clear Local Storage Data">
             </form>
         </div>
-        <h2 id="array">Array:</h2>
-        
+
+        <h3 id="username">Username: </h3>
+        <h3 id="personfn">First Name:</h3>
+        <h3 id="personln">Last Name:</h3>
+        <h3 id="persondob">Date of Birth:</h3>
+        <h3 id="personemail">Email:</h3>
+        <h3 id="address">Address:</h3>
+
+        <h1>List of Keys in Local Storage</h1>
+        <input type="button" onclick="showKeyList()" value="Show Key List">
+        <p id="keylist"></p>
 
         <script>
-
-            function Person(fn, ln, bd, em) {//Ti is the constuctor for a Person object
-                this.firstName = fn;
-                this.lastName = ln;
-                this.bdate = bd;
-                this.email = em;
-                this.introduce = function () {//I have created a function/method that allows a Person to introduce themsleves to tell the user a little about himself. 
-                    document.getElementById("personObject").innerHTML = "Function: Hello! My name is " + this.firstName + " " + this.lastName + ".";
-                }
+            class Person {
+                username;
+                firstName;
+                lastName;
+                bDate;
+                email;
+                street;
+                city;
+                zip;
             }
 
-            function myPersonFunction() {//Functions that gets called when a user hits the button next to the field to get the userdata
-                //window.alert(typeof(Storage));
-                if (typeof (Storage) == "undefined") {
-                    var me = new Person(document.getElementById("firstName").value, document.getElementById("LastName").value,
-                        document.getElementById("bdate").value, document.getElementById("email").value);
+            function showKeyList() {
+                var string = "";
+                for (var i = 0; i < localStorage.length; i++) {
+                    string += localStorage.key(i) + "<br>";
+                }
+                document.getElementById("keylist").innerHTML = string;
+            }
 
-                    localStorage.setItem("person", JSON.stringify(me));
+            function displayData(person) {
+                document.getElementById("username").innerHTML = "Username: " + person.username;
+                document.getElementById("personfn").innerHTML = "First Name: " + person.firstName;
+                document.getElementById("personln").innerHTML = "Last Name: " + person.lastName;
+                document.getElementById("persondob").innerHTML = "Birthday: " + person.bDate;
+                document.getElementById("personemail").innerHTML = "Email: " + person.email;
+                document.getElementById("address").innerHTML = "Address: " + person.street + ", " + person.city + ", " + person.zip;
+
+            }
+
+            function storedata(key, data) {
+                //window.alert("storedata key: " + key);
+                newData = JSON.stringify(data);
+                localStorage.setItem(key, data);
+
+            }
+
+            function getData() {
+                var key = document.getElementById("key").value;
+                var person = localStorage.getItem(key);
+                var parsedPerson;
+                window.alert("key to get: " + key);
+                if (localStorage.getItem(key) != null) {
+                    //window.alert("Found Someone" + person);
+                    parsedPerson = JSON.parse(person);
+                    displayData(parsedPerson);
                 } else {
-                    var getObject = JSON.parse(localStorage.getItem("person"));
-                    //window.alert(getObject.firstName);
-                    document.getElementById("personfn").innerHTML = "First Name: " + getObject.firstName;
-                    document.getElementById("personln").innerHTML = "Last Name: "+getObject.lastName;
-                    document.getElementById("persondob").innerHTML = "Date of Birth: " + getObject.bdate;
-                    document.getElementById("personemail").innerHTML = "Email: "+getObject.email;
-                    document.getElementById("personObject").innerHTML = "Function: " + getObject.firstName + " " + getObject.lastName + " " +
-                        getObject.bdate + " " + getObject.email;
+                    window.alert("There is no user with that data Stored");
                 }
-                me.introduce();
             }
 
-            function arrayFunction() {
-                var length = document.getElementById("length").value;
-                //window.alert("length: " + length);
-                var arr = [];
-                var string;
-                for (i=0;i<length;i++){
-                    arr[i]=Math.floor((Math.random() * 10) + 1);
-                    //window.alert(Math.floor((Math.random() * 10) + 1));
-                }
-
-                localStorage.setItem("array", arr);
-                var storageArray = localStorage.getItem("array");
-                for (i=0;i<storageArray.length;i++){
-                    string += storageArray[i]+=" ";
-                }
-                document.getElementById("array").innerHTML = "Array: " + string;
-            }
-
-
-
+            function execute() {
+                var person = new Person();
+                person.username = document.getElementById("userName").value;
+                person.firstName = document.getElementById("firstName").value;
+                person.lastName = document.getElementById("lastName").value;
+                person.bDate = document.getElementById("bdate").value;
+                person.email = document.getElementById("email").value;
+                person.street = document.getElementById("street").value;
+                person.city = document.getElementById("city").value;
+                person.zip = document.getElementById("zip").value;
+                //window.alert("execute person: " + person.username);
+                stringedData = JSON.stringify(person);
+                //window.alert("stringed Data: " + stringedData);
+                localStorage.setItem(person.username, stringedData);
+            }            
         </script>
-
     </div>
 </body>
-
-
 </html>
