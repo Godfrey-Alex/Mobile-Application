@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        .mainContainer {
+            margin: 100px;
+        }
+
+        .shape1 {
+            background: steelblue;
+            border-radius: 4px;
+            display: inline-block;
+            height: 50px;
+            width: 50px;
+            margin: 20px;
+            transition: width 2s, background .5s;
+
+        }
+
+        .shape1:hover {
+            background: turquoise;
+
+            width: 100px;
+        }
+
+        .shape2 {
+            background: red;
+            border-radius: 4px;
+            display: inline-block;
+            height: 50px;
+            width: 50px;
+            margin: 20px;
+            transition: height .5s, background 3s;
+
+        }
+
+        .shape2:hover {
+            background: green;
+            height: 100px;
+
+        }
+
+        .shape3 {
+            background: yellowgreen;
+            border-radius: 4px;
+            display: inline-block;
+            height: 50px;
+            width: 50px;
+            margin: 20px;
+            transition: height .5s, width 2s, background 1s;
+
+        }
+
+        .shape3:hover {
+            background: blue;
+            height: 100px;
+            width: 100px;
+            border-radius: 4px;
+        }
+
+        .textColor {
+            color: red;
+            font-size: 18pt;
+            transition: color 2s;
+        }
+
+        .textColor:hover {
+            color: lime;
+        }
+
+        .textSize {
+            color: navy;
+            font-size: 18pt;
+            transition: font-size 2s;
+        }
+
+        .textSize:hover {
+            font-size: 48pt;
+        }
+
+        .flashingColor {
+            font-size: 18pt;
+            color: steelblue;
+            animation: blinkingText .2s infinite;
+        }
+
+        @keyframes blinkingText {
+            0% {
+                color: #000;
+            }
+
+            49% {
+                color: red;
+            }
+
+            50% {
+                color: yellowgreen;
+            }
+
+            99% {
+                color: blue;
+            }
+
+            100% {
+                color: #000;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mainContainer">
+        <h1>Changing Shapes</h1>
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+        <div class="shape3"></div>
+        <h1>Changing Text Properties</h1>
+        <p class="textColor">This text should change colors</p>
+        <div class="textSize">
+            <p>This text should change Size</p>
+        </div>
+        <p class="flashingColor">This text should Flash colors</p>
+    </div>
+
+</body>
+<script>
+
+
+</script>
+
+
+</html>
