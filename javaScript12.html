@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript</title>
+    <link rel="stylesheet" href="css/.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        .mainContainer {
+            margin: 100px;
+        }
+
+        .shape1 {
+            background: steelblue;
+            border-radius: 4px;
+            display: inline-block;
+            height: 50px;
+            width: 50px;
+            margin: 20px;
+            transition:transform 2s, width 2s, background .5s;
+            transform: rotate(0deg);
+
+        }
+
+        .shape1:hover {
+            background: turquoise;
+            width: 100px;
+            transform: rotate(33deg);
+        }
+
+        .shape2 {
+            background: red;
+            border-radius: 4px;
+            display: inline-block;
+            height: 50px;
+            width: 50px;
+            margin: 20px;
+            transition: transform 3s, height .5s, background 3s;
+            transform: skewY(0deg);
+        }
+
+        .shape2:hover {
+            background: green;
+            height: 100px;
+            transform: skewY(33deg);
+        }
+
+        .shape3 {
+            background: yellowgreen;
+            border-radius: 4px;
+            display: inline-block;
+            height: 50px;
+            width: 50px;
+            margin: 20px;
+            transition: transform 2s, background 1s;
+            transform: scaleY(1);
+
+        }
+
+        .shape3:hover {
+            transform: scaleY(1.75);
+            background: blue;
+        }
+
+        .textColor {
+            color: red;
+            font-size: 18pt;
+            display: inline-block;
+            transition: transform 2s, color 2s;
+            transform: rotate(0deg);
+        }
+
+        .textColor:hover {
+            color: lime;
+            transform: rotate(270deg);
+        }
+
+        .textSize {
+            color: navy;
+            font-size: 18pt;
+            display: inline-block;
+            transition: transform 2s;
+            transform: skewY(0deg);
+        }
+
+        .textSize:hover {
+            transform: skewY(20deg);
+        }
+
+        .flashingColor {
+            font-size: 18pt;
+            color: steelblue;
+            animation: blinkingText .1s infinite;
+            transition: transform 2s;
+            transform: scaleY(1);
+        }
+
+        .flashingColor:hover{
+            transform: scaleY(2);
+        }
+
+        @keyframes blinkingText {
+            0% {
+                color: #000;
+            }
+
+            49% {
+                color: red;
+            }
+
+            50% {
+                color: yellowgreen;
+            }
+
+            99% {
+                color: blue;
+            }
+
+            100% {
+                color: #000;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mainContainer">
+        <h1>Transforming Shapes</h1>
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+        <div class="shape3"></div>
+        <h1>Transforming Text Properties</h1>
+        <p class="textColor">This text should rotate</p><br>
+        <div class="textSize">
+            <p>This text should skew</p>
+        </div>
+        <p class="flashingColor">This text should stretch</p>
+    </div>
+
+</body>
+<script>
+
+
+</script>
+
+
+</html>
