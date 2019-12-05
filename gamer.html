@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Steam Friends</title>
+    <!--<link rel="stylesheet" href="css/.css">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Java Script">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        p {
+            color: lightgray;
+            transition: font-size .5s, color .5s;
+            font-size: 100%;
+        }
+
+        p:hover {
+            color: red;
+            font-size: 125%;
+        }
+
+        #body {
+            color: lightgray;
+            background-color: black;
+            font-family: "Arial"
+        }
+
+        #profilePic1 {
+            margin-top: 5%;
+        }
+        #profilePic1:hover{
+            animation: rotate 2s infinite;
+        }
+
+        #profilePic2 {
+            margin-top: 5%;
+
+        }
+
+        #profilePic2:hover {
+            animation: rotate 2s 3;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg)
+            }
+
+            to {
+                transform: rotate(359deg)
+            }
+        }
+
+        #steamHeader {
+            grid-area: header;
+            display: grid;
+            font-size: 200%;
+            grid-template-areas:
+                'hleft hcenter hright';
+            grid-template-columns: auto auto auto;
+            background-color: black;
+        }
+
+        #steamProfileDiv {
+            height: 15%;
+        }
+
+        #headerDiv1 {
+            grid-area: hleft;
+        }
+
+        #headerDiv2 {
+            position: relative;
+            display: inline-block;
+
+        }
+
+
+
+        #headerDiv3 {
+            grid-area: hright;
+        }
+
+        #steamFriends {
+            grid-area: left;
+
+        }
+
+        #playerState {
+            grid-area: center
+        }
+
+        #ownedGames {
+            grid-area: right
+        }
+
+        #grid {
+            height: 1000px;
+            display: grid;
+            grid-template-areas:
+                'header header header header header header'
+                'left left center center right right'
+                'left left center center right right'
+                'left left center center right right'
+                'left left center center right right'
+                'left left center center right right';
+            grid-gap: 3px;
+            background-color: rgb(48, 48, 49);
+            padding: 5px;
+            grid-template-rows: 15% 85%;
+            grid-template-columns: 10% 20% 20% 20% 20% 10%;
+        }
+
+        #grid>div {
+            background-color: #1b2838;
+            text-align: center;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+
+<body id="body" onload="getPlayerInfo()">
+    <div id="grid">
+        <div id="steamHeader">
+            <div id="headerDiv1">
+                <img id="profilePic1" alt="Profile Picture"
+                    style="width:100px;height:100px; vertical-align: middle;"><br>
+
+            </div>
+            <div id="headerDiv2">
+                <h1 id="steamProfileDiv" ondblclick="updateUser()" style="text-align: center;">User</h1>
+            </div>
+            <div id="headerDiv3">
+                <img src="C:\Users\Alex\OneDrive\Documents\Mobile Application\Pages\images\steam.svg.png"
+                    id="profilePic2" alt="Profile Picture"
+                    style="width:100px;height:100px; margin-right: 15px; margin-bottom: 50px;">
+            </div>
+        </div>
+
+        <div id="steamFriends">
+            <h1 id="friends">Friends:</h1>
+        </div>
+        <div id="playerState" style="text-align: center;">
+            <h1 id="playerStatus">Status: </h1>
+            <h2 id="recPlayedGames">Recently Played Games:</h2>
+        </div>
+        <div id="ownedGames">
+            <h1>Owned Games:</h1>
+        </div>
+    </div>
+    <script>
+        function addFriend(steamIDf) {
+            var steamKey = '4236CB81E3FDAD184AC3078669930A96';
+            const steamRequestURLf = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + steamKey + '&steamids=' + steamIDf;
+            //var steamGameListURL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + steamKey + '&steamid=' + steamId + '&format=json';
+
+            var frequest = new XMLHttpRequest();
+            frequest.open('GET', steamRequestURLf, true)
+            frequest.responseType = 'json';
+            frequest.onload = function () {
+                var fdata = this.response;
+                var newData = document.createElement('p');
+                newData.innerHTML = fdata.response.players[0].personaname + "<br>(" + steamIDf + ")";
+                document.getElementById("steamFriends").appendChild(newData);
+            }
+            frequest.send();
+        }
+
+        function addGame(gameID) {
+            const steamGameInfoURL = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=4236CB81E3FDAD184AC3078669930A96&appid=" + gameID;
+            var gameInfoRequest = new XMLHttpRequest();
+            gameInfoRequest.open('GET', steamGameInfoURL, true)
+            gameInfoRequest.responseType = 'json';
+            gameInfoRequest.onload = function () {
+                // Get Owned Games for user-> https://developer.valvesoftware.com/wiki/Steam_Web_API#GetOwnedGames_.28v0001.29
+                var gameInfo = this.response;
+                //console.log(this.status);
+                //console.log(gameInfo.game.gameName);
+                if (gameInfo.game.gameName != undefined) {
+                    var newData = document.createElement('p');
+                    newData.innerHTML = gameInfo.game.gameName;
+                    document.getElementById("ownedGames").appendChild(newData);
+                }
+            }
+            gameInfoRequest.send();
+        }
+        /*
+        INITIAL POPULATION OF THE USER
+        */
+        function getPlayerInfo() {
+            var steamKey = '4236CB81E3FDAD184AC3078669930A96';
+            var steamId = '76561198151843866';
+            const steamRequestURL = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + steamKey + '&steamids=' + steamId;
+            const steamFriendListURL = 'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=' + steamKey + '&steamid=' + steamId + '&relationship=friend';
+            const steamGameListURL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + steamKey + '&steamid=' + steamId + '&format=json';
+            const steamRecPlayedGames = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=' + steamKey + '&steamid=' + steamId + '&format=json'
+
+            var request = new XMLHttpRequest();
+            request.open('GET', steamRequestURL, true)
+            request.responseType = 'json';
+            request.onload = function () {
+                var data = this.response;
+                document.getElementById("steamProfileDiv").innerHTML = data.response.players[0].personaname;
+                document.getElementById("profilePic1").src = data.response.players[0].avatarfull;
+                var status = data.response.players[0].personastate;
+                if (status == 0) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Offline"
+                } else if (status == 1) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Online"
+                } else if (status == 2) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Busy"
+                } else if (status == 3) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Away"
+                } else if (status == 4) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Snooze"
+                } else if (status == 5) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Looking to Trade"
+                } else if (status == 6) {
+                    document.getElementById("playerStatus").innerHTML = "Looking to Play"
+                }
+            }
+            request.send();
+
+            var frientListRequest = new XMLHttpRequest();
+            frientListRequest.open('GET', steamFriendListURL, true)
+            frientListRequest.responseType = 'json';
+            frientListRequest.onload = function () {
+                var friendData = this.response;
+                if (this.status == 401) {
+                    document.getElementById("friends").innerHTML = "Friends: <br> User friend list<br>not public"
+                } else {                
+                    for (var i = 0; friendData.friendslist.friends.length; i++) {
+                        addFriend(friendData.friendslist.friends[i].steamid);
+                    }
+                }
+            }
+            frientListRequest.send();
+
+
+            var gameListRequest = new XMLHttpRequest();
+            gameListRequest.open('GET', steamGameListURL, true)
+            gameListRequest.responseType = 'json';
+            gameListRequest.onload = function () {
+                var gameList = this.response;
+
+                if (this.status == 400) {
+                    document.getElementById("ownedGames").innerHTML = "Games: <br> User game list<br>not public"
+                } else {
+                    console.log(gameList.response.games.length);
+                    for (var i = 0; i < gameList.response.games.length; i++) {
+                        addGame(gameList.response.games[i].appid);
+                    }
+                }
+            }
+            gameListRequest.send();
+
+            var gamePlayedRequest = new XMLHttpRequest();
+            gamePlayedRequest.open('GET', steamRecPlayedGames, true)
+            gamePlayedRequest.responseType = 'json';
+            gamePlayedRequest.onload = function () {
+                var playedGameLIst = this.response;
+                if (this.status == 400) {
+                    document.getElementById("recPlayedGames").innerHTML = "Recently Played Games <br> unavailable"
+                } else {
+                    console.log(" Initial Population Gamelist length: " + playedGameLIst.response.games.length);
+                    for (var i = 0; i < playedGameLIst.response.games.length; i++) {
+                        var twoWeek = playedGameLIst.response.games[i].playtime_2weeks/60;
+                        var forever = playedGameLIst.response.games[i].playtime_forever/60;
+                        var newData = document.createElement('p');
+                        newData.innerHTML = playedGameLIst.response.games[i].name + '<br> Recently Played: ' + 
+                        twoWeek.toFixed(2) + ' hours<br> Total time played: ' + 
+                        forever.toFixed(2)+' hours';
+                        document.getElementById("recPlayedGames").appendChild(newData);
+                    }
+                }
+            }
+            gamePlayedRequest.send();
+        }
+
+        /*
+        Update All the User Information
+        */
+
+        function updateUser() {
+            var newID = prompt("Enter Steam ID");
+            var childList = document.getElementById("steamFriends");
+            console.log("update user child length: " + childList.childNodes.length);
+
+            for (var i = 0; i < childList.childNodes.length - 1; i++) {
+                childList.removeChild(childList.lastChild);
+            }
+
+            var childList = document.getElementById("ownedGames");
+            for (var i = 0; i < childList.childNodes.length - 1; i++) {
+                childList.removeChild(childList.lastChild);
+            }
+
+            childList = document.getElementById("recPlayedGames");
+            for (var i = 0; i < childList.childNodes.length - 1; i++) {
+                childList.removeChild(childList.lastChild);
+            }
+            var steamKey = '4236CB81E3FDAD184AC3078669930A96';
+            var steamId = newID;
+            const steamRequestURL = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + steamKey + '&steamids=' + steamId;
+            const steamFriendListURL = 'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=' + steamKey + '&steamid=' + steamId + '&relationship=friend';
+            const steamGameListURL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + steamKey + '&steamid=' + steamId + '&format=json';
+            const steamRecPlayedGames = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=' + steamKey + '&steamid=' + steamId + '&format=json';
+            
+
+            var request = new XMLHttpRequest();
+            request.open('GET', steamRequestURL, true)
+            request.responseType = 'json';
+            request.onload = function () {
+                var data = this.response;
+                document.getElementById("steamProfileDiv").innerHTML = data.response.players[0].personaname;
+                document.getElementById("profilePic1").src = data.response.players[0].avatarfull;
+                var status = data.response.players[0].personastate;
+                if (status == 0) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Offline"
+                } else if (status == 1) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Online"
+                } else if (status == 2) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Busy"
+                } else if (status == 3) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Away"
+                } else if (status == 4) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Snooze"
+                } else if (status == 5) {
+                    document.getElementById("playerStatus").innerHTML = "Status: Looking to Trade"
+                } else if (status == 6) {
+                    document.getElementById("playerStatus").innerHTML = "Looking to Play"
+                }
+            }
+            request.send();
+            console.log("get user data called");
+
+            var frientListRequest = new XMLHttpRequest();
+            frientListRequest.open('GET', steamFriendListURL, true)
+            frientListRequest.responseType = 'json';
+            frientListRequest.onload = function () {
+                var friendData = this.response;
+                if (this.status == 401) {
+                    document.getElementById("friends").innerHTML = "Friends: <br> User friend list<br>not public"
+                } else {                
+                    for (var i = 0; friendData.friendslist.friends.length; i++) {
+                        addFriend(friendData.friendslist.friends[i].steamid);
+                    }
+                }
+            }
+            frientListRequest.send();
+            console.log("friend list called");
+
+
+            var gameListRequest = new XMLHttpRequest();
+            gameListRequest.open('GET', steamGameListURL, true)
+            gameListRequest.responseType = 'json';
+            gameListRequest.onload = function () {
+                var gameList = this.response;
+                if (this.status == 400) {
+                    document.getElementById("ownedGames").innerHTML = "Games: <br> User game list<br>not public"
+                } else {
+                    for (var i = 0; i < gameList.response.games.length; i++) {
+                        console.log
+                        addGame(gameList.response.games[i].appid);
+                    }
+                }
+            }
+            gameListRequest.send();
+            console.log("Game List Called");
+
+            var gamePlayedRequest = new XMLHttpRequest();
+            gamePlayedRequest.open('GET', steamRecPlayedGames, true)
+            gamePlayedRequest.responseType = 'json';
+            gamePlayedRequest.onload = function () {
+                var playedGameLIst = this.response;
+                if (this.status == 400) {
+                    document.getElementById("recPlayedGames").innerHTML = "Recently Played Games <br> unavailable"
+                } else {
+                    console.log("Gamelist length: " + playedGameLIst.response.games.length);
+                    for (var i = 0; i < playedGameLIst.response.games.length; i++) {
+                        var twoWeek = playedGameLIst.response.games[i].playtime_2weeks/60;
+                        var forever = playedGameLIst.response.games[i].playtime_forever/60;
+                        var newData = document.createElement('p');
+                        newData.innerHTML = playedGameLIst.response.games[i].name + '<br> Recently Played: ' + 
+                        twoWeek.toFixed(2) + ' hours<br> Total time played: ' + 
+                        forever.toFixed(2)+' hours';
+                        document.getElementById("recPlayedGames").appendChild(newData);
+                    }
+                }
+            }
+            gamePlayedRequest.send();
+            console.log("recently played list called");
+
+        }
+
+    </script>
+
+</body>
+
+</html>
