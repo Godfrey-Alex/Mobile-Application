@@ -9,10 +9,23 @@
     <meta name="description" content="Java Script">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
+        h1 {
+            font-size: 350%;
+            animation: blinkingText 30s infinite;
+            transition: font-size 2s, transform 2s;
+            transform: skeyX(0deg)
+        }
+
+        h1:hover {
+            font-size: 450%;
+            transform: skewX(-20deg);
+
+        }
+
         p {
             color: lightgray;
             transition: font-size .5s, color .5s;
-            font-size: 100%;
+            font-size: 150%;
         }
 
         p:hover {
@@ -23,19 +36,20 @@
         #body {
             color: lightgray;
             background-color: black;
-            font-family: "Arial"
+            font-family: "Arial";
+            height: 1800px;
         }
 
         #profilePic1 {
             margin-top: 5%;
         }
-        #profilePic1:hover{
+
+        #profilePic1:hover {
             animation: rotate 2s infinite;
         }
 
         #profilePic2 {
             margin-top: 5%;
-
         }
 
         #profilePic2:hover {
@@ -49,6 +63,56 @@
 
             to {
                 transform: rotate(359deg)
+            }
+        }
+
+        #profilePic3 {
+            display: inline-block;
+            position: relative; 
+            height: 50px;
+            width: 50px;
+            margin: 20px;
+            transition: transform 2s, width 2s, height 2s;
+            transform: rotate(0deg);
+            animation: flying 18s infinite;
+        }
+
+        #profilePic3:hover {
+            transform: rotate(720deg);
+            height: 200px;
+            width: 200px;
+        }
+
+        @keyframes flying {
+            0% {
+                
+                left: -700px;
+                top: -400px;
+                
+            }
+
+            25% {
+                
+                left: 700px;
+                top: -400px;
+            }
+
+            50% {
+                
+                left: 700px;
+                top: 400px;
+            }
+
+            75% {
+                
+                left: -700px;
+                top: 400px;
+            }
+
+            100% {
+                
+                left: -700px;
+                top: -400px;
             }
         }
 
@@ -73,10 +137,7 @@
         #headerDiv2 {
             position: relative;
             display: inline-block;
-
         }
-
-
 
         #headerDiv3 {
             grid-area: hright;
@@ -84,7 +145,6 @@
 
         #steamFriends {
             grid-area: left;
-
         }
 
         #playerState {
@@ -96,7 +156,7 @@
         }
 
         #grid {
-            height: 1000px;
+            height: 100%;
             display: grid;
             grid-template-areas:
                 'header header header header header header'
@@ -116,7 +176,35 @@
             background-color: #1b2838;
             text-align: center;
             border-radius: 25px;
+            height: 100%
         }
+
+        @keyframes blinkingText {
+            0% {
+                color: rgb(109, 106, 106);
+            }
+
+            20% {
+                color: rgb(42, 28, 231);
+            }
+
+            40% {
+                color: rgb(233, 10, 10);
+            }
+
+            60% {
+                color: blue;
+            }
+
+            80% {
+                color: #000;
+            }
+
+            95% {
+                color:rgb(109, 106, 106)
+            }
+        }
+
     </style>
 </head>
 
@@ -132,9 +220,8 @@
                 <h1 id="steamProfileDiv" ondblclick="updateUser()" style="text-align: center;">User</h1>
             </div>
             <div id="headerDiv3">
-                <img src="https://godfrey-alex.github.io/Mobile-Application/steam.svg.png"
-                    id="profilePic2" alt="Profile Picture"
-                    style="width:100px;height:100px; margin-right: 15px; margin-bottom: 50px;">
+                <img src="https://godfrey-alex.github.io/Mobile-Application/steam.svg.png" id="profilePic2"
+                    alt="Profile Picture" style="width:100px;height:100px; margin-right: 15px; margin-bottom: 50px;">
             </div>
         </div>
 
@@ -144,6 +231,8 @@
         <div id="playerState" style="text-align: center;">
             <h1 id="playerStatus">Status: </h1>
             <h2 id="recPlayedGames">Recently Played Games:</h2>
+            <img src="https://www.halopedia.org/images/d/d6/HI_E3_2019_Trailer_John_117.PNG" id="profilePic3"
+                    alt="Profile Picture">
         </div>
         <div id="ownedGames">
             <h1>Owned Games:</h1>
@@ -229,7 +318,7 @@
                 var friendData = this.response;
                 if (this.status == 401) {
                     document.getElementById("friends").innerHTML = "Friends: <br> User friend list<br>not public"
-                } else {                
+                } else {
                     for (var i = 0; friendData.friendslist.friends.length; i++) {
                         addFriend(friendData.friendslist.friends[i].steamid);
                     }
@@ -247,7 +336,7 @@
                 if (this.status == 400) {
                     document.getElementById("ownedGames").innerHTML = "Games: <br> User game list<br>not public"
                 } else {
-                    console.log(gameList.response.games.length);
+                    //console.log(gameList.response.games.length);
                     for (var i = 0; i < gameList.response.games.length; i++) {
                         addGame(gameList.response.games[i].appid);
                     }
@@ -263,14 +352,14 @@
                 if (this.status == 400) {
                     document.getElementById("recPlayedGames").innerHTML = "Recently Played Games <br> unavailable"
                 } else {
-                    console.log(" Initial Population Gamelist length: " + playedGameLIst.response.games.length);
+                    //console.log(" Initial Population Gamelist length: " + playedGameLIst.response.games.length);
                     for (var i = 0; i < playedGameLIst.response.games.length; i++) {
-                        var twoWeek = playedGameLIst.response.games[i].playtime_2weeks/60;
-                        var forever = playedGameLIst.response.games[i].playtime_forever/60;
+                        var twoWeek = playedGameLIst.response.games[i].playtime_2weeks / 60;
+                        var forever = playedGameLIst.response.games[i].playtime_forever / 60;
                         var newData = document.createElement('p');
-                        newData.innerHTML = playedGameLIst.response.games[i].name + '<br> Recently Played: ' + 
-                        twoWeek.toFixed(2) + ' hours<br> Total time played: ' + 
-                        forever.toFixed(2)+' hours';
+                        newData.innerHTML = playedGameLIst.response.games[i].name + '<br> Recently Played: ' +
+                            twoWeek.toFixed(2) + ' hours<br> Total time played: ' +
+                            forever.toFixed(2) + ' hours';
                         document.getElementById("recPlayedGames").appendChild(newData);
                     }
                 }
@@ -286,18 +375,22 @@
             var newID = prompt("Enter Steam ID");
             var childList = document.getElementById("steamFriends");
             console.log("update user child length: " + childList.childNodes.length);
+            var childListLength = childList.childNodes.length;
 
-            for (var i = 0; i < childList.childNodes.length - 1; i++) {
+            for (var i = 0; i < childListLength - 2; i++) {
+                console.log("removing node " + i);
                 childList.removeChild(childList.lastChild);
             }
 
             var childList = document.getElementById("ownedGames");
-            for (var i = 0; i < childList.childNodes.length - 1; i++) {
+            var childListLength = childList.childNodes.length;
+            for (var i = 0; i < childListLength - 2; i++) {
                 childList.removeChild(childList.lastChild);
             }
 
             childList = document.getElementById("recPlayedGames");
-            for (var i = 0; i < childList.childNodes.length - 1; i++) {
+            var childListLength = childList.childNodes.length;
+            for (var i = 0; i < childListLength - 1; i++) {
                 childList.removeChild(childList.lastChild);
             }
             var steamKey = '4236CB81E3FDAD184AC3078669930A96';
@@ -306,7 +399,7 @@
             const steamFriendListURL = 'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=' + steamKey + '&steamid=' + steamId + '&relationship=friend';
             const steamGameListURL = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + steamKey + '&steamid=' + steamId + '&format=json';
             const steamRecPlayedGames = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=' + steamKey + '&steamid=' + steamId + '&format=json';
-            
+
 
             var request = new XMLHttpRequest();
             request.open('GET', steamRequestURL, true)
@@ -333,7 +426,7 @@
                 }
             }
             request.send();
-            console.log("get user data called");
+            //console.log("get user data called");
 
             var frientListRequest = new XMLHttpRequest();
             frientListRequest.open('GET', steamFriendListURL, true)
@@ -342,14 +435,15 @@
                 var friendData = this.response;
                 if (this.status == 401) {
                     document.getElementById("friends").innerHTML = "Friends: <br> User friend list<br>not public"
-                } else {                
+                } else {
                     for (var i = 0; friendData.friendslist.friends.length; i++) {
                         addFriend(friendData.friendslist.friends[i].steamid);
+                        //console.log(i);
                     }
                 }
             }
-            frientListRequest.send();
-            console.log("friend list called");
+            frientListRequest.send();//fix this
+            //console.log("friend list called");
 
 
             var gameListRequest = new XMLHttpRequest();
@@ -361,13 +455,13 @@
                     document.getElementById("ownedGames").innerHTML = "Games: <br> User game list<br>not public"
                 } else {
                     for (var i = 0; i < gameList.response.games.length; i++) {
-                        console.log
                         addGame(gameList.response.games[i].appid);
+                        //console.log(i);
                     }
                 }
             }
             gameListRequest.send();
-            console.log("Game List Called");
+            //console.log("Game List Called");
 
             var gamePlayedRequest = new XMLHttpRequest();
             gamePlayedRequest.open('GET', steamRecPlayedGames, true)
@@ -377,20 +471,20 @@
                 if (this.status == 400) {
                     document.getElementById("recPlayedGames").innerHTML = "Recently Played Games <br> unavailable"
                 } else {
-                    console.log("Gamelist length: " + playedGameLIst.response.games.length);
+                    //console.log("Gamelist length: " + playedGameLIst.response.games.length);
                     for (var i = 0; i < playedGameLIst.response.games.length; i++) {
-                        var twoWeek = playedGameLIst.response.games[i].playtime_2weeks/60;
-                        var forever = playedGameLIst.response.games[i].playtime_forever/60;
+                        var twoWeek = playedGameLIst.response.games[i].playtime_2weeks / 60;
+                        var forever = playedGameLIst.response.games[i].playtime_forever / 60;
                         var newData = document.createElement('p');
-                        newData.innerHTML = playedGameLIst.response.games[i].name + '<br> Recently Played: ' + 
-                        twoWeek.toFixed(2) + ' hours<br> Total time played: ' + 
-                        forever.toFixed(2)+' hours';
+                        newData.innerHTML = playedGameLIst.response.games[i].name + '<br> Recently Played: ' +
+                            twoWeek.toFixed(2) + ' hours<br> Total time played: ' +
+                            forever.toFixed(2) + ' hours';
                         document.getElementById("recPlayedGames").appendChild(newData);
                     }
                 }
             }
             gamePlayedRequest.send();
-            console.log("recently played list called");
+            //console.log("recently played list called");
 
         }
 
